@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CustomTabBar.swift
 //  MobilePhoneBuyersGuide
 //
 //  Created by Patchariya Piyaaromrat on 27/8/2562 BE.
@@ -8,13 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class CustomTabBar: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
 
-
+    override func viewWillLayoutSubviews() {
+        tabBar.frame = CGRect(x: 0, y:80, width: tabBar.frame.size.width, height: tabBar.frame.size.height)
+    }
 }
-
