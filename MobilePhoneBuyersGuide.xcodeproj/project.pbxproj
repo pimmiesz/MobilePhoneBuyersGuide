@@ -13,8 +13,7 @@
 		2E5A83A22314DA3E00E5A62D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A83A12314DA3E00E5A62D /* Assets.xcassets */; };
 		2E5A83A52314DA3E00E5A62D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A83A32314DA3E00E5A62D /* LaunchScreen.storyboard */; };
 		2E5A83AD2314E3B300E5A62D /* CustomTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83AC2314E3B300E5A62D /* CustomTabBar.swift */; };
-		2E5A83AF2314E6BD00E5A62D /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83AE2314E6BD00E5A62D /* FirstViewController.swift */; };
-		2E5A83B12314E6CD00E5A62D /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83B02314E6CD00E5A62D /* SecondViewController.swift */; };
+		2E5A83AF2314E6BD00E5A62D /* AllViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83AE2314E6BD00E5A62D /* AllViewController.swift */; };
 		2E5A83B32314EB8100E5A62D /* MobileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83B22314EB8100E5A62D /* MobileTableViewCell.swift */; };
 		2E5A83B52314EE1000E5A62D /* MobileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83B42314EE1000E5A62D /* MobileData.swift */; };
 		2E5A83B72314FC9200E5A62D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A83B62314FC9200E5A62D /* Podfile */; };
@@ -35,8 +34,7 @@
 		2E5A83A42314DA3E00E5A62D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2E5A83A62314DA3E00E5A62D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E5A83AC2314E3B300E5A62D /* CustomTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBar.swift; sourceTree = "<group>"; };
-		2E5A83AE2314E6BD00E5A62D /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		2E5A83B02314E6CD00E5A62D /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		2E5A83AE2314E6BD00E5A62D /* AllViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllViewController.swift; sourceTree = "<group>"; };
 		2E5A83B22314EB8100E5A62D /* MobileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileTableViewCell.swift; sourceTree = "<group>"; };
 		2E5A83B42314EE1000E5A62D /* MobileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileData.swift; sourceTree = "<group>"; };
 		2E5A83B62314FC9200E5A62D /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
@@ -99,8 +97,7 @@
 				2E5A83A12314DA3E00E5A62D /* Assets.xcassets */,
 				2E5A839A2314DA3D00E5A62D /* AppDelegate.swift */,
 				2E5A83AC2314E3B300E5A62D /* CustomTabBar.swift */,
-				2E5A83AE2314E6BD00E5A62D /* FirstViewController.swift */,
-				2E5A83B02314E6CD00E5A62D /* SecondViewController.swift */,
+				2E5A83AE2314E6BD00E5A62D /* AllViewController.swift */,
 				2E5A839E2314DA3D00E5A62D /* Main.storyboard */,
 				2E5A83A32314DA3E00E5A62D /* LaunchScreen.storyboard */,
 				2E5A83A62314DA3E00E5A62D /* Info.plist */,
@@ -276,9 +273,8 @@
 				2E5A83AD2314E3B300E5A62D /* CustomTabBar.swift in Sources */,
 				2E5A83BB23152CB200E5A62D /* MobileCollectionViewCell.swift in Sources */,
 				2E5A839B2314DA3D00E5A62D /* AppDelegate.swift in Sources */,
-				2E5A83B12314E6CD00E5A62D /* SecondViewController.swift in Sources */,
 				2E5A83BD2315454C00E5A62D /* Picture.swift in Sources */,
-				2E5A83AF2314E6BD00E5A62D /* FirstViewController.swift in Sources */,
+				2E5A83AF2314E6BD00E5A62D /* AllViewController.swift in Sources */,
 				2E5A83B32314EB8100E5A62D /* MobileTableViewCell.swift in Sources */,
 				2E5A83B92314FD5B00E5A62D /* FeedData.swift in Sources */,
 			);
