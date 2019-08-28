@@ -20,6 +20,9 @@
 		2E5A83B72314FC9200E5A62D /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A83B62314FC9200E5A62D /* Podfile */; };
 		2E5A83B92314FD5B00E5A62D /* FeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83B82314FD5B00E5A62D /* FeedData.swift */; };
 		2E5A83BB23152CB200E5A62D /* MobileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83BA23152CB200E5A62D /* MobileCollectionViewCell.swift */; };
+		2E5A83BD2315454C00E5A62D /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5A83BC2315454C00E5A62D /* Picture.swift */; };
+		2E5A83C02316189B00E5A62D /* star-tap.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A83BF2316189B00E5A62D /* star-tap.png */; };
+		2E5A83C22316284800E5A62D /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5A83C12316284800E5A62D /* star.png */; };
 		504A3967CFE39431FAC1534C /* Pods_MobilePhoneBuyersGuide.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2F18CAB94032230630F1BE4 /* Pods_MobilePhoneBuyersGuide.framework */; };
 /* End PBXBuildFile section */
 
@@ -39,6 +42,9 @@
 		2E5A83B62314FC9200E5A62D /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
 		2E5A83B82314FD5B00E5A62D /* FeedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedData.swift; sourceTree = "<group>"; };
 		2E5A83BA23152CB200E5A62D /* MobileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileCollectionViewCell.swift; sourceTree = "<group>"; };
+		2E5A83BC2315454C00E5A62D /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
+		2E5A83BF2316189B00E5A62D /* star-tap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star-tap.png"; sourceTree = "<group>"; };
+		2E5A83C12316284800E5A62D /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
 		34F0A81C35763303B626EDB8 /* Pods-MobilePhoneBuyersGuide.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePhoneBuyersGuide.release.xcconfig"; path = "Target Support Files/Pods-MobilePhoneBuyersGuide/Pods-MobilePhoneBuyersGuide.release.xcconfig"; sourceTree = "<group>"; };
 		F0F1E6281FCBA36605753DB0 /* Pods-MobilePhoneBuyersGuide.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobilePhoneBuyersGuide.debug.xcconfig"; path = "Target Support Files/Pods-MobilePhoneBuyersGuide/Pods-MobilePhoneBuyersGuide.debug.xcconfig"; sourceTree = "<group>"; };
 		F2F18CAB94032230630F1BE4 /* Pods_MobilePhoneBuyersGuide.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MobilePhoneBuyersGuide.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,21 +92,56 @@
 		2E5A83992314DA3D00E5A62D /* MobilePhoneBuyersGuide */ = {
 			isa = PBXGroup;
 			children = (
+				2E5A83BE2316187700E5A62D /* Resource */,
+				2E5A83C62316298D00E5A62D /* Data */,
+				2E5A83C42316296D00E5A62D /* Cell */,
+				2E5A83C32316294200E5A62D /* Detail */,
+				2E5A83A12314DA3E00E5A62D /* Assets.xcassets */,
 				2E5A839A2314DA3D00E5A62D /* AppDelegate.swift */,
 				2E5A83AC2314E3B300E5A62D /* CustomTabBar.swift */,
-				2E5A839C2314DA3D00E5A62D /* DeatailViewController.swift */,
-				2E5A839E2314DA3D00E5A62D /* Main.storyboard */,
-				2E5A83A12314DA3E00E5A62D /* Assets.xcassets */,
-				2E5A83A32314DA3E00E5A62D /* LaunchScreen.storyboard */,
-				2E5A83A62314DA3E00E5A62D /* Info.plist */,
 				2E5A83AE2314E6BD00E5A62D /* FirstViewController.swift */,
 				2E5A83B02314E6CD00E5A62D /* SecondViewController.swift */,
-				2E5A83B22314EB8100E5A62D /* MobileTableViewCell.swift */,
-				2E5A83B42314EE1000E5A62D /* MobileData.swift */,
-				2E5A83B82314FD5B00E5A62D /* FeedData.swift */,
-				2E5A83BA23152CB200E5A62D /* MobileCollectionViewCell.swift */,
+				2E5A839E2314DA3D00E5A62D /* Main.storyboard */,
+				2E5A83A32314DA3E00E5A62D /* LaunchScreen.storyboard */,
+				2E5A83A62314DA3E00E5A62D /* Info.plist */,
 			);
 			path = MobilePhoneBuyersGuide;
+			sourceTree = "<group>";
+		};
+		2E5A83BE2316187700E5A62D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				2E5A83C12316284800E5A62D /* star.png */,
+				2E5A83BF2316189B00E5A62D /* star-tap.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		2E5A83C32316294200E5A62D /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				2E5A839C2314DA3D00E5A62D /* DeatailViewController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		2E5A83C42316296D00E5A62D /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2E5A83B22314EB8100E5A62D /* MobileTableViewCell.swift */,
+				2E5A83BA23152CB200E5A62D /* MobileCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		2E5A83C62316298D00E5A62D /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				2E5A83B42314EE1000E5A62D /* MobileData.swift */,
+				2E5A83B82314FD5B00E5A62D /* FeedData.swift */,
+				2E5A83BC2315454C00E5A62D /* Picture.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		CEA70C72232AED38C2195DD6 /* Pods */ = {
@@ -173,9 +214,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E5A83A52314DA3E00E5A62D /* LaunchScreen.storyboard in Resources */,
+				2E5A83C02316189B00E5A62D /* star-tap.png in Resources */,
 				2E5A83A22314DA3E00E5A62D /* Assets.xcassets in Resources */,
 				2E5A83B72314FC9200E5A62D /* Podfile in Resources */,
 				2E5A83A02314DA3D00E5A62D /* Main.storyboard in Resources */,
+				2E5A83C22316284800E5A62D /* star.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +277,7 @@
 				2E5A83BB23152CB200E5A62D /* MobileCollectionViewCell.swift in Sources */,
 				2E5A839B2314DA3D00E5A62D /* AppDelegate.swift in Sources */,
 				2E5A83B12314E6CD00E5A62D /* SecondViewController.swift in Sources */,
+				2E5A83BD2315454C00E5A62D /* Picture.swift in Sources */,
 				2E5A83AF2314E6BD00E5A62D /* FirstViewController.swift in Sources */,
 				2E5A83B32314EB8100E5A62D /* MobileTableViewCell.swift in Sources */,
 				2E5A83B92314FD5B00E5A62D /* FeedData.swift in Sources */,

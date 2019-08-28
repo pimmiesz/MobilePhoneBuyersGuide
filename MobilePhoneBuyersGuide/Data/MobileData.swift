@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - MobileDatum
-struct MobileDatum: Codable {
+struct MobileElement: Codable {
     let thumbImageURL: String
     let brand: String
     let rating: Double
@@ -21,5 +21,5 @@ struct MobileDatum: Codable {
     }
 }
 
-typealias MobileData = [MobileDatum]
+typealias MobileData = [MobileElement]
 
