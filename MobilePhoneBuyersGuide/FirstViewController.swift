@@ -13,6 +13,9 @@ class FirstViewController: UIViewController {
     var info: MobileData!
     var favInfo: [MobileElement] = []
 
+    @IBAction func sortBtn(_ sender: Any) {
+        showAlert()
+    }
     @IBOutlet var navigation: UINavigationItem!
     @IBOutlet var mTableView: UITableView!
 
@@ -20,6 +23,7 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         feedData()
     }
+    
 
     func feedData() {
         let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
@@ -36,6 +40,35 @@ class FirstViewController: UIViewController {
             print("selectd \(selected)")
             viewController.mobile = selected
         }
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Sort", message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Price low to high", style: .default, handler: { (_) in
+            self.info.sort(by: { (first, second) -> Bool in
+                first.price<second.price
+            })
+            self.mTableView.reloadData()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Price high to low", style: .default, handler: { (_) in
+            self.info.sort(by: { (first, second) -> Bool in
+                first.price>second.price
+            })
+            self.mTableView.reloadData()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Rating", style: .default, handler: { (_) in
+            self.info.sort(by: { (first, second) -> Bool in
+                first.rating>second.rating
+            })
+            self.mTableView.reloadData()
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (_) in
+         
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
