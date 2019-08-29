@@ -18,9 +18,6 @@ class AllViewController: UIViewController {
   
   @IBOutlet weak var favoriteBtn: UIButton!
   @IBOutlet weak var allBtn: UIButton!
-  @IBAction func sortBtn(_ sender: Any) {
-    showAlert()
-  }
   @IBOutlet var navigation: UINavigationItem!
   @IBOutlet var mTableView: UITableView!
   
@@ -29,13 +26,17 @@ class AllViewController: UIViewController {
     feedData()
     favoriteBtn.addTarget(self, action: #selector(tapFav), for: .touchUpInside)
     allBtn.addTarget(self, action: #selector(tapAll), for: .touchUpInside)
-    
+  }
+  
+  @IBAction func sortBtn(_ sender: Any) {
+    showAlert()
   }
   
   func feedData() {
     let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
     mFeed.getData(url: _url) { result in
       self.info = result
+      self.allInfo = result
       self.mTableView.reloadData()
     }
   }
@@ -58,8 +59,7 @@ class AllViewController: UIViewController {
     
   }
   @objc func tapAll(){
-    //      info = allInfo
-    feedData()
+    info = allInfo
     mTableView.reloadData()
     isSelected = false
     allBtn.setTitleColor(UIColor.black, for: .normal)
@@ -73,6 +73,12 @@ class AllViewController: UIViewController {
       self.info.sort(by: { (first, second) -> Bool in
         first.price<second.price
       })
+      self.favInfo.sort(by: { (first, second) -> Bool in
+        first.price<second.price
+      })
+      self.allInfo.sort(by: { (first, second) -> Bool in
+        first.price<second.price
+      })
       self.mTableView.reloadData()
     }))
     
@@ -80,11 +86,24 @@ class AllViewController: UIViewController {
       self.info.sort(by: { (first, second) -> Bool in
         first.price>second.price
       })
+      self.favInfo.sort(by: { (first, second) -> Bool in
+        first.price>second.price
+      })
+      self.allInfo.sort(by: { (first, second) -> Bool in
+        first.price>second.price
+      })
+      
       self.mTableView.reloadData()
     }))
     
     alert.addAction(UIAlertAction(title: "Rating", style: .default, handler: { (_) in
       self.info.sort(by: { (first, second) -> Bool in
+        first.rating>second.rating
+      })
+      self.favInfo.sort(by: { (first, second) -> Bool in
+        first.rating>second.rating
+      })
+      self.allInfo.sort(by: { (first, second) -> Bool in
         first.rating>second.rating
       })
       self.mTableView.reloadData()
@@ -98,31 +117,23 @@ class AllViewController: UIViewController {
 
 extension AllViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if let count = self.info?.count {
-      return count
-    } else {
-      return 0
-    }
+    return self.info?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let price = "Price: $ "
-    let rating = "Rating: "
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? MobileTableViewCell
-    cell?.firstVc = self
-    cell?.favorite()
-    cell?.nameLabel.text = info[indexPath.row].name
-    cell?.descriptionLabel.text = info[indexPath.row].mobileDatumDescription
-    cell?.priceLabel.text = price + String(info[indexPath.row].price)
-    cell?.ratingLabel.text = rating + String(info[indexPath.row].rating)
-    cell?.img.loadImageUrl(info[indexPath.row].thumbImageURL)
-    if isSelected == true{
-      cell?.starBtn.isHidden = true
-    } else{
-      cell?.starBtn.isHidden = false
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? MobileTableViewCell else {
+      return UITableViewCell()
     }
     
-    return cell!
+    cell.firstVc = self
+    cell.nameLabel.text = info[indexPath.row].name
+    cell.descriptionLabel.text = info[indexPath.row].mobileDatumDescription
+    cell.priceLabel.text = "Price: $ \(info[indexPath.row].price)"
+    cell.ratingLabel.text = "Rating: \(info[indexPath.row].rating)"
+    cell.img.loadImageUrl(info[indexPath.row].thumbImageURL)
+    cell.starBtn.isHidden = isSelected
+    
+    return cell
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -130,29 +141,48 @@ extension AllViewController: UITableViewDataSource, UITableViewDelegate {
     tableView.deselectRow(at: indexPath, animated: true)
   }
   
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    return true
+  }
+  
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if (editingStyle == .delete) {
+      
+      
+      
+    }
+  }
+  
   func addFavorite(cell: UITableViewCell,isFav:Bool) {
     let favCell = mTableView.indexPath(for: cell)
     let index = favCell?.row
     UserDefaults.standard.removeObject(forKey: "id")
-    if isFav == true {
-      id.append(self.info[index!].id)
+    if isFav {
+      id.append(self.info?[index ?? 0].id ?? 0)
       UserDefaults.standard.set(id, forKey: "id")
     } else{
-      var index = id.index(of: self.info[index!].id)
-      id.remove(at: index!)
+      let index = id.firstIndex(of: self.info[index!].id)
+      id.remove(at: index ?? 0)
       UserDefaults.standard.set(id, forKey: "id")
     }
-    id = UserDefaults.standard.value(forKey: "id") as! [Int]
+    id = UserDefaults.standard.value(forKey: "id") as? [Int] ?? []
+    findId(id: id)
+    
+  }
+  func findId(id:[Int]){
     favInfo.removeAll()
     for i in id{
-      favInfo.append(((info?[i-1])!))
+      favInfo.append(info[i-1])
     }
+    mTableView.reloadData()
   }
   
 }
 
 extension UIImageView {
   func loadImageUrl(_ urlString: String) {
-    af_setImage(withURL: URL(string: urlString)!)
+    if let url = URL(string: urlString) {
+      af_setImage(withURL: url)
+    }
   }
 }

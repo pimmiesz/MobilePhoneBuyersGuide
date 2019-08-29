@@ -13,7 +13,7 @@ class FeedData {
   func getData(url: String, completion: @escaping (MobileData) -> Void) {
     AF.request(URL(string: url)!, method: .get).responseJSON { response in
       switch response.result {
-      case let .success(value):
+      case .success:
         //                print(value)
         do {
           print("success feed")
@@ -49,7 +49,6 @@ class FeedData {
           print("error case success")
           print(error)
         }
-        break
       case let .failure(error):
         print("error case failure")
         print(error)
