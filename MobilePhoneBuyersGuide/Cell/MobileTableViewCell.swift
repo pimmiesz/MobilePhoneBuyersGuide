@@ -16,26 +16,28 @@ class MobileTableViewCell: UITableViewCell {
   @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var img: UIImageView!
   @IBOutlet weak var starBtn: UIButton!
-  var firstVc: AllViewController?
+  var allVc: AllViewController?
   var isTapped: Bool = false
   
-//  func favorite() {
-//    starBtn.addTarget(self, action: #selector(tap), for: .touchUpInside)
-//  }
   
   @IBAction func tap(_ sender: UIButton) {
+    isTapped = !isTapped
+    allVc?.addFavorite(cell: self, isFav: isTapped)
+    
+  }
+  func setImageButton (isfav:Bool){
     let imageStar: UIImage?
-    if !isTapped {
+    if isfav {
       imageStar = UIImage(named: "star-tap.png")
     } else{
       imageStar = UIImage(named: "star.png")
     }
-    
-    isTapped = !isTapped
     if let imageStar = imageStar {
       starBtn.setImage(imageStar, for: .normal)
     }
-    firstVc?.addFavorite(cell: self, isFav: isTapped)
+    //    mTableView.reloadData()
   }
+  
+  
   
 }

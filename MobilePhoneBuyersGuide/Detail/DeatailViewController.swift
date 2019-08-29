@@ -20,7 +20,6 @@ class DetailViewController: UIViewController {
   var id = ""
   override func viewDidLoad() {
     super.viewDidLoad()
-    feedData()
     if let mb = mobile{
       detailLabel.text = mb.mobileDatumDescription
       titleItem.title = mb.name
@@ -28,6 +27,7 @@ class DetailViewController: UIViewController {
       ratingLabel.text = "Rating: \(mb.rating)"
       id = String(mb.id)
     }
+    feedData()
     
   }
   
@@ -37,6 +37,23 @@ class DetailViewController: UIViewController {
       self.pic = result
       self.mCollectionView.reloadData()
     }
+  }
+  func isValidUrl(url: String) -> Bool {
+    let head1 = "((http|https)://)"
+    let head = "([(w|W)]{3}+\\.)?"
+    let tail = "\\.+[A-Za-z]{2,3}+(\\.)?+(/(.)*)?"
+    let urlRegEx = head1 + head + "+(.)+" + tail
+    let httpTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
+    return httpTest.evaluate(with: url)
+  }
+  
+  func link(url:String) -> String{
+    var successUrl = url
+    if !isValidUrl(url: url){
+      successUrl = "http://\(url)"
+    }
+    return successUrl
+    
   }
 }
 
@@ -49,7 +66,8 @@ extension DetailViewController: UICollectionViewDataSource {
     guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? MobileCollectionViewCell else {
       return UICollectionViewCell()
     }
-    cell.imageView.loadImageUrl(pic[indexPath.row].url)
+    print(link(url: pic[indexPath.row].url))
+    cell.imageView.loadImageUrl(link(url: pic[indexPath.row].url))
     
     return cell
   }

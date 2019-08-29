@@ -15,6 +15,7 @@ class AllViewController: UIViewController {
   var allInfo: [MobileElement] = []
   var id:[Int] = []
   var isSelected:Bool = false
+  var cellVc: MobileTableViewCell?
   
   @IBOutlet weak var favoriteBtn: UIButton!
   @IBOutlet weak var allBtn: UIButton!
@@ -113,6 +114,8 @@ class AllViewController: UIViewController {
     }))
     self.present(alert, animated: true, completion: nil)
   }
+  
+  
 }
 
 extension AllViewController: UITableViewDataSource, UITableViewDelegate {
@@ -124,14 +127,15 @@ extension AllViewController: UITableViewDataSource, UITableViewDelegate {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? MobileTableViewCell else {
       return UITableViewCell()
     }
-    
-    cell.firstVc = self
+    let bool = info[indexPath.row].isfav
+    cell.allVc = self
     cell.nameLabel.text = info[indexPath.row].name
     cell.descriptionLabel.text = info[indexPath.row].mobileDatumDescription
     cell.priceLabel.text = "Price: $ \(info[indexPath.row].price)"
     cell.ratingLabel.text = "Rating: \(info[indexPath.row].rating)"
     cell.img.loadImageUrl(info[indexPath.row].thumbImageURL)
     cell.starBtn.isHidden = isSelected
+    cell.setImageButton(isfav: bool)
     
     return cell
   }
@@ -158,9 +162,13 @@ extension AllViewController: UITableViewDataSource, UITableViewDelegate {
     let index = favCell?.row
     UserDefaults.standard.removeObject(forKey: "id")
     if isFav {
+      self.info?[index ?? 0].isfav = true
+      self.allInfo[index ?? 0].isfav = true
       id.append(self.info?[index ?? 0].id ?? 0)
       UserDefaults.standard.set(id, forKey: "id")
     } else{
+      self.info?[index ?? 0].isfav = false
+      self.allInfo[index ?? 0].isfav = false
       let index = id.firstIndex(of: self.info[index!].id)
       id.remove(at: index ?? 0)
       UserDefaults.standard.set(id, forKey: "id")
@@ -172,10 +180,15 @@ extension AllViewController: UITableViewDataSource, UITableViewDelegate {
   func findId(id:[Int]){
     favInfo.removeAll()
     for i in id{
-      favInfo.append(info[i-1])
+      for j in allInfo{
+        if i == j.id{
+          favInfo.append(j)
+        }
+      }
     }
     mTableView.reloadData()
   }
+  
   
 }
 

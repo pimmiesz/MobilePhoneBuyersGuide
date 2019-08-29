@@ -14,6 +14,7 @@ struct MobileElement: Codable {
   let id: Int
   let name, mobileDatumDescription: String
   let price: Double
+  var isfav:Bool = false
   
   enum CodingKeys: String, CodingKey {
     case thumbImageURL, brand, rating, id, name
