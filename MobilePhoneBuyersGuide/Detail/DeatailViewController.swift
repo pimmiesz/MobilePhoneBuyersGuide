@@ -47,7 +47,7 @@ class DetailViewController: UIViewController {
     return httpTest.evaluate(with: url)
   }
   
-  func link(url:String) -> String{
+  func link(url:String) -> String {
     var successUrl = url
     if !isValidUrl(url: url){
       successUrl = "http://\(url)"

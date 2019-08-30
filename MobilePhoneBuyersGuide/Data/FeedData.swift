@@ -9,6 +9,7 @@
 import Alamofire
 import AlamofireImage
 import Foundation
+
 class FeedData {
   func getData(url: String, completion: @escaping (MobileData) -> Void) {
     AF.request(URL(string: url)!, method: .get).responseJSON { response in

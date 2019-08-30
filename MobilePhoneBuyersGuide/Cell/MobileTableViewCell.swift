@@ -35,7 +35,6 @@ class MobileTableViewCell: UITableViewCell {
     if let imageStar = imageStar {
       starBtn.setImage(imageStar, for: .normal)
     }
-    //    mTableView.reloadData()
   }
   
   

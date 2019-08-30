@@ -13,7 +13,7 @@ class AllViewController: UIViewController {
   var info: MobileData!
   var favInfo: [MobileElement] = []
   var allInfo: [MobileElement] = []
-  var id:[Int] = []
+  var idList:[Int] = []
   var isSelected:Bool = false
   var cellVc: MobileTableViewCell?
   
@@ -37,8 +37,11 @@ class AllViewController: UIViewController {
     let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
     mFeed.getData(url: _url) { result in
       self.info = result
-      self.allInfo = result
-      self.mTableView.reloadData()
+      self.setFavorite(idList: self.idList, bool: true)
+      self.allInfo = self.info
+      //self.setFavorite(idList: self.idList, info: self.allInfo, bool: true)
+      
+//      self.mTableView.reloadData()
     }
   }
   
@@ -52,7 +55,7 @@ class AllViewController: UIViewController {
   }
   
   @objc func tapFav(){
-    info = favInfo
+    info = info.filter { $0.isfav == true }
     mTableView.reloadData()
     isSelected = true
     allBtn.setTitleColor(UIColor.lightGray, for: .normal)
@@ -74,9 +77,6 @@ class AllViewController: UIViewController {
       self.info.sort(by: { (first, second) -> Bool in
         first.price<second.price
       })
-      self.favInfo.sort(by: { (first, second) -> Bool in
-        first.price<second.price
-      })
       self.allInfo.sort(by: { (first, second) -> Bool in
         first.price<second.price
       })
@@ -85,9 +85,6 @@ class AllViewController: UIViewController {
     
     alert.addAction(UIAlertAction(title: "Price high to low", style: .default, handler: { (_) in
       self.info.sort(by: { (first, second) -> Bool in
-        first.price>second.price
-      })
-      self.favInfo.sort(by: { (first, second) -> Bool in
         first.price>second.price
       })
       self.allInfo.sort(by: { (first, second) -> Bool in
@@ -101,12 +98,10 @@ class AllViewController: UIViewController {
       self.info.sort(by: { (first, second) -> Bool in
         first.rating>second.rating
       })
-      self.favInfo.sort(by: { (first, second) -> Bool in
-        first.rating>second.rating
-      })
       self.allInfo.sort(by: { (first, second) -> Bool in
         first.rating>second.rating
       })
+      
       self.mTableView.reloadData()
     }))
     alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (_) in
@@ -115,7 +110,7 @@ class AllViewController: UIViewController {
     self.present(alert, animated: true, completion: nil)
   }
   
-  
+ 
 }
 
 extension AllViewController: UITableViewDataSource, UITableViewDelegate {
@@ -151,9 +146,22 @@ extension AllViewController: UITableViewDataSource, UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if (editingStyle == .delete) {
-      
-      
-      
+      let id = favInfo[indexPath.row].id
+      favInfo.remove(at: indexPath.row)
+      info = favInfo
+      var index = 0
+      while(index < allInfo.count) {
+        if id == allInfo[index].id {
+          allInfo[index].isfav = false
+          let index = idList.firstIndex(of: self.allInfo[index].id)
+          idList.remove(at: index ?? 0)
+          UserDefaults.standard.removeObject(forKey: "id")
+          UserDefaults.standard.set(idList, forKey: "id")
+        }
+        index+=1
+      }
+     
+      mTableView.reloadData()
     }
   }
   
@@ -161,34 +169,49 @@ extension AllViewController: UITableViewDataSource, UITableViewDelegate {
     let favCell = mTableView.indexPath(for: cell)
     let index = favCell?.row
     UserDefaults.standard.removeObject(forKey: "id")
+    UserDefaults.standard.synchronize()
     if isFav {
       self.info?[index ?? 0].isfav = true
       self.allInfo[index ?? 0].isfav = true
-      id.append(self.info?[index ?? 0].id ?? 0)
-      UserDefaults.standard.set(id, forKey: "id")
-    } else{
+      idList.append(self.info?[index ?? 0].id ?? 0)
+      UserDefaults.standard.removeObject(forKey: "id")
+      UserDefaults.standard.synchronize()
+      UserDefaults.standard.set(idList, forKey: "id")
+      self.setFavorite(idList: self.idList, bool: true)
+     
+    } else {
       self.info?[index ?? 0].isfav = false
       self.allInfo[index ?? 0].isfav = false
-      let index = id.firstIndex(of: self.info[index!].id)
-      id.remove(at: index ?? 0)
-      UserDefaults.standard.set(id, forKey: "id")
+      let index = idList.firstIndex(of: self.info[index!].id)
+      idList.remove(at: index ?? 0)
+      UserDefaults.standard.removeObject(forKey: "id")
+      UserDefaults.standard.set(idList, forKey: "id")
+
     }
-    id = UserDefaults.standard.value(forKey: "id") as? [Int] ?? []
-    findId(id: id)
-    
+    let filtered = info.filter { $0.isfav == true }
+    favInfo = filtered
+    mTableView.reloadData()
   }
-  func findId(id:[Int]){
-    favInfo.removeAll()
-    for i in id{
-      for j in allInfo{
-        if i == j.id{
-          favInfo.append(j)
+  
+  func setFavorite(idList:[Int],bool:Bool) {
+    
+    self.idList = UserDefaults.standard.value(forKey: "id") as? [Int] ?? []
+    print("idList\(self.idList)")
+//    var filtered: [MobileElement]
+    
+    for id in idList {
+      var index = 0
+      while(index < self.info.count) {
+        if id == self.info[index].id {
+          self.info[index].isfav = bool
+           self.allInfo[index].isfav = bool
         }
+        index+=1
       }
     }
     mTableView.reloadData()
   }
-  
+
   
 }
 
